@@ -1,3 +1,4 @@
+var bundle = require('jspm/lib/bundle');
 var gutil = require('gulp-util');
 var jspm = require('jspm');
 var Liftoff = require('liftoff');
@@ -135,15 +136,15 @@ function do_bundle(file, opts){
                     return jspm_opts;
         })();
 
-        var method = opts.selfExecutingBundle?'bundleSFX':'bundle';
+        var method = opts.selfExecutingBundle?'build':'bundle';
 
-        info_log('calling `jspm.'+method+"('"+jspm_input+"','"+jspm_output+"',"+JSON.stringify(jspm_opts)+');`', infos);
+        info_log('calling `bundle.'+method+"('"+jspm_input+"','"+jspm_output+"',"+JSON.stringify(jspm_opts)+');`', infos);
 
         return Promise.resolve(
-            jspm[method](jspm_input, jspm_output, jspm_opts)
+            bundle[method](jspm_input, jspm_output, jspm_opts)
         )
         .then(function(){
-            info_log('jspm.'+method+'() called', infos);
+            info_log('bundle.'+method+'() called', infos);
 
             return infos;
         });
